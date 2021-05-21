@@ -1,6 +1,6 @@
 using System;
 
-namespace BuilderTests.TestUtilities.ExampleClasses
+namespace OpenApiBuilder.Tests.TestUtilities.ExampleClasses
 {
     public class MultiPropertyClass
     {

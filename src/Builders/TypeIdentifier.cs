@@ -1,6 +1,6 @@
 using System;
 
-namespace Builders
+namespace OpenApiBuilder
 {
     public class TypeIdentifier
     {

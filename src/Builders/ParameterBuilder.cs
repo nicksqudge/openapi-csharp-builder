@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.OpenApi.Models;
 
-namespace Builders
+namespace OpenApiBuilder
 {
     public class ParameterBuilder : BaseListBuilder<OpenApiParameter>
     {

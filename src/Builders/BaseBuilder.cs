@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Builders
+namespace OpenApiBuilder
 {
     public abstract class BaseBuilder<T>
         where T : class, new()

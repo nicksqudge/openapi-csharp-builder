@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
-using Builders;
-using BuilderTests.TestUtilities;
-using BuilderTests.TestUtilities.ExampleClasses;
+using OpenApiBuilder;
+using OpenApiBuilder.Tests.TestUtilities;
+using OpenApiBuilder.Tests.TestUtilities.ExampleClasses;
 using FluentAssertions;
 using Microsoft.OpenApi.Models;
 using Xunit;
 
-namespace BuilderTests
+namespace OpenApiBuilder.Tests
 {
     public class ParameterBuildTests
     {
