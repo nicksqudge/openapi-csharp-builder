@@ -20,7 +20,7 @@ namespace OpenApiBuilder
 
         private static OperationBuilder AddResponseWithAction(this OperationBuilder opBuilder, HttpStatusCode code, Action<ResponseBuilder> respAction)
         {
-            var responseBuilder = new ResponseBuilder();
+            var responseBuilder = new ResponseBuilder(opBuilder.Components);
             respAction.Invoke(responseBuilder);
 
             opBuilder.AddResponse(code, responseBuilder);

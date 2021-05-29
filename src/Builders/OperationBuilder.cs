@@ -4,8 +4,12 @@ using Microsoft.OpenApi.Models;
 
 namespace OpenApiBuilder
 {
-    public class OperationBuilder : BaseBuilder<OpenApiOperation>
+    public class OperationBuilder : BaseBuilderWithComponents<OpenApiOperation>
     {
+        public OperationBuilder(OpenApiComponents components) : base(components)
+        {
+        }
+
         public OperationBuilder AddTag(string tagName)
         {
             _result.Tags.Add(new OpenApiTag()

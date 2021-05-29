@@ -6,7 +6,7 @@ namespace OpenApiBuilder
     {
         public static PathBuilder AddGetOperation(this PathBuilder pathBuilder, Action<OperationBuilder> opBuilderAction)
         {
-            var opBuilder = new OperationBuilder();
+            var opBuilder = new OperationBuilder(pathBuilder.Components);
             opBuilderAction.Invoke(opBuilder);
 
             pathBuilder.AddOperation(Microsoft.OpenApi.Models.OperationType.Get, opBuilder);
