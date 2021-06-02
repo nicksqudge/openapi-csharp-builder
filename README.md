@@ -3,6 +3,12 @@ Open API Builder patterns for the Microsoft.OpenApi.NET JSON for use in Swagger
 
 This is an early alpha to help with some building for another project. Please feel free to fork from it to extend it if you can. If you have any requests raise an Issue and I will get around to adding the functionality to the next version.
 
+## Installation
+
+Install from [Nuget](https://www.nuget.org/packages/OpenApiBuilder/)
+
+`dotnet add package OpenApiBuilder`
+
 ## Usage
 
 ```
