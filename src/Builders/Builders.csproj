@@ -10,6 +10,7 @@
     <Description>Open API Builder patterns for the Microsoft.OpenApi.NET JSON for use in Swagger</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/nicksqudge/openapi-csharp-builder</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

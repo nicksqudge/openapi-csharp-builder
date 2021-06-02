@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>OpenApiBuilder</id>
+
+        <version>0.0.1-alpha</version>
+
+        <authors>Nick Browne</authors>
+
+        <owners>nick.squdge</owners>
+        
+        <projectUrl>https://github.com/nicksqudge/openapi-csharp-builder</projectUrl>
+        
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+        <releaseNotes>Initial release</releaseNotes>
+
+        <description>Open API Builder patterns for the Microsoft.OpenApi.NET JSON for use in Swagger</description>
+
+        <copyright>Copyright ©2021 Nick Browne</copyright>
+
+        <tags>OpenApi Swagger</tags>
+        <dependencies>
+            <dependency id="Microsoft.OpenApi" version="1.2.3" />
+        </dependencies>
+    </metadata>
+</package>
