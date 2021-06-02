@@ -14,6 +14,13 @@ namespace OpenApiBuilder.Tests.TestUtilities
             dictAssertions.Subject.ContainsKey(key).Should().BeTrue(because);
         }
 
+        public static void HaveKeys<TKey, TValue>(this GenericDictionaryAssertions<TKey, TValue> dictAssertions,
+            params TKey[] keys)
+        {
+            foreach (var key in keys)
+                dictAssertions.Subject.ContainsKey(key).Should().BeTrue($"Should have key {key}");
+        }
+
         public static void Have<T>(this GenericCollectionAssertions<T> listAssertions,
                                    Func<T, bool> finder,
                                    int expectedCount = 1,

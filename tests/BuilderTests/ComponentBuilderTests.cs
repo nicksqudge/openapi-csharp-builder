@@ -18,7 +18,10 @@ namespace OpenApiBuilder.Tests
             new ComponentBuilder(components)
                 .LoadTypeToSchema<ListProjectsViewResult>();
 
-            components.Schemas.Should().HaveCount(3);
+            components.Schemas.Should().HaveKey(
+                nameof(ListProjectsViewResult), 
+                nameof(ProjectDto)
+            );
 
             var listProjectSchema = components.Schemas
                 .FirstOrDefault(s => s.Key == nameof(ListProjectsViewResult)).Value;
@@ -32,8 +35,8 @@ namespace OpenApiBuilder.Tests
 
             var project = listProjectSchema.Properties["projects"];
             project.Type.Should().Be("array");
-            project.Reference.Should().NotBeNull();
-            project.Reference.Id.Should().Be(nameof(ProjectDto));
+            project.Items.Reference.Should().NotBeNull();
+            project.Items.Reference.Id.Should().Be(nameof(ProjectDto));
         }
 
         [Fact]
@@ -44,7 +47,6 @@ namespace OpenApiBuilder.Tests
             new ComponentBuilder(components)
                 .LoadTypeToSchema<ProjectDto>();
 
-            components.Schemas.Should().HaveCount(1);
             components.Schemas.Should().HaveKey("ProjectDto");
 
             var projectDto = components.Schemas["ProjectDto"];
@@ -57,6 +59,34 @@ namespace OpenApiBuilder.Tests
             
             var name = projectDto.Properties["name"];
             name.Type.Should().Be("string");
+        }
+
+        [Fact]
+        public void NestedGenericType()
+        {
+            var components = new OpenApiComponents();
+
+            new ComponentBuilder(components)
+                .LoadTypeToSchema<Result<ListProjectsViewResult>>();
+
+            components.Schemas.Should().HaveKeys(
+                "ListProjectsViewResultResult",
+                nameof(ListProjectsViewResult),
+                nameof(ProjectDto)
+            );
+
+            var result = components.Schemas["ListProjectViewResultResult"];
+            result.Type.Should().Be("object");
+            result.Properties.Should().HaveKeys(
+                "error",
+                "isSuccess",
+                "isFailure",
+                "value"
+            );
+            
+            var resultValue = result.Properties["value"];
+            resultValue.Type.Should().Be("object");
+            resultValue.Reference.Id.Should().Be(nameof(ListProjectsViewResult));
         }
     }  
 }

@@ -45,20 +45,48 @@ namespace OpenApiBuilder
                 {
                     var (key, propertySchema) = ReadType(property.PropertyType);
                     _components.Schemas.Add(key, propertySchema);
-                    schema.Reference = new OpenApiReference()
-                    {
-                        Id = key
-                    };
+                    schema.Properties.Add(name, SchemaWithReference(key));
                 }
                 else if (propType == TypeIdentifier.Array)
                 {
+                    var itemType = property.PropertyType
+                        .GetGenericArguments()
+                        .First();
 
+                    var (key, itemSchema) = ReadType(itemType);
+                    _components.Schemas.Add(key, itemSchema);
+
+                    schema.Properties.Add(name, new OpenApiSchema()
+                    {
+                        Type = TypeIdentifier.Array,
+                        Items = SchemaWithReference(key)
+                    });
                 }
                 else
                 {
-                    
+                    schema.Properties.Add(
+                        name,
+                        new OpenApiSchema()
+                        {
+                            Type = propType,
+                            Format = format,
+                        }
+                    );
                 }
             }
+
+            return (type.Name, schema);
+        }
+
+        private OpenApiSchema SchemaWithReference(string referenceId)
+        {
+            return new OpenApiSchema()
+            {
+                Reference = new OpenApiReference()
+                {
+                    Id = referenceId
+                }
+            };
         }
 
         private bool IsRequired(PropertyInfo prop)
