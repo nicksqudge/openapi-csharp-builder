@@ -29,7 +29,7 @@ namespace OpenApiBuilder
             var properties = type.GetProperties();
             var schema = new OpenApiSchema()
             {
-                Type = "object"
+                Type = TypeIdentifier.Object
             };
 
             foreach (var property in properties)
@@ -42,51 +42,62 @@ namespace OpenApiBuilder
                 var (propType, format) = TypeIdentifier.Id(property.PropertyType);
 
                 if (propType == TypeIdentifier.Object)
-                {
-                    var (key, propertySchema) = ReadType(property.PropertyType);
-                    _components.Schemas.Add(key, propertySchema);
-                    schema.Properties.Add(name, SchemaWithReference(key));
-                }
+                    BuildObjectSchema(schema, property, name);
                 else if (propType == TypeIdentifier.Array)
-                {
-                    var itemType = property.PropertyType
-                        .GetGenericArguments()
-                        .First();
-
-                    var (key, itemSchema) = ReadType(itemType);
-                    _components.Schemas.Add(key, itemSchema);
-
-                    schema.Properties.Add(name, new OpenApiSchema()
-                    {
-                        Type = TypeIdentifier.Array,
-                        Items = SchemaWithReference(key)
-                    });
-                }
+                    BuildArraySchema(schema, property, name);
                 else
-                {
-                    schema.Properties.Add(
-                        name,
-                        new OpenApiSchema()
-                        {
-                            Type = propType,
-                            Format = format,
-                        }
-                    );
-                }
+                    BuildPropertySchema(schema, name, propType, format);
             }
 
-            return (type.Name, schema);
+            return (TypeIdentifier.Name(type), schema);
         }
 
-        private OpenApiSchema SchemaWithReference(string referenceId)
+        private void BuildPropertySchema(OpenApiSchema schema, string name, string propType, string format)
         {
-            return new OpenApiSchema()
+            schema.Properties.Add(
+                                    name,
+                                    new OpenApiSchema()
+                                    {
+                                        Type = propType,
+                                        Format = format,
+                                    }
+                                );
+        }
+
+        private void BuildArraySchema(OpenApiSchema schema, PropertyInfo property, string name)
+        {
+            var itemType = property.PropertyType
+                                    .GetGenericArguments()
+                                    .First();
+
+            var (key, itemSchema) = ReadType(itemType);
+            _components.Schemas.Add(key, itemSchema);
+
+            schema.Properties.Add(name, new OpenApiSchema()
             {
+                Type = TypeIdentifier.Array,
+                Items = new OpenApiSchema()
+                {
+                    Reference = new OpenApiReference()
+                    {
+                        Id = key
+                    }
+                }
+            });
+        }
+
+        private void BuildObjectSchema(OpenApiSchema schema, PropertyInfo property, string name)
+        {
+            var (key, propertySchema) = ReadType(property.PropertyType);
+            _components.Schemas.Add(key, propertySchema);
+            schema.Properties.Add(name, new OpenApiSchema()
+            {
+                Type = TypeIdentifier.Object,
                 Reference = new OpenApiReference()
                 {
-                    Id = referenceId
+                    Id = key
                 }
-            };
+            });
         }
 
         private bool IsRequired(PropertyInfo prop)

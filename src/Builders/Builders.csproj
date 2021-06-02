@@ -4,6 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>OpenApiBuilder</AssemblyName>
     <RootNamespace>OpenApiBuilder</RootNamespace>
+    <PackageId>OpenApiBuilder</PackageId>
+    <Version>0.0.1-alpha</Version>
+    <Authors>Nick Browne</Authors>
+    <Description>Open API Builder patterns for the Microsoft.OpenApi.NET JSON for use in Swagger</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/nicksqudge/openapi-csharp-builder</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

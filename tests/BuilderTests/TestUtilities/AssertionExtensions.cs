@@ -21,10 +21,11 @@ namespace OpenApiBuilder.Tests.TestUtilities
                 dictAssertions.Subject.ContainsKey(key).Should().BeTrue($"Should have key {key}");
         }
 
-        public static void Have<T>(this GenericCollectionAssertions<T> listAssertions,
-                                   Func<T, bool> finder,
-                                   int expectedCount = 1,
-                                   string because="")
+        public static void Have<T>(
+            this GenericCollectionAssertions<T> listAssertions,
+            Func<T, bool> finder,
+            int expectedCount = 1,
+            string because = "")
         {
             listAssertions.Subject.Count(finder).Should().Be(expectedCount, because);
         }

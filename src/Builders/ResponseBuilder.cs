@@ -1,3 +1,4 @@
+using System.Runtime.Intrinsics.X86;
 using System;
 using System.Linq;
 using Microsoft.OpenApi.Models;
@@ -16,15 +17,7 @@ namespace OpenApiBuilder
 
             var inputType = typeof(T);
 
-            if (inputType.GenericTypeArguments.Any())
-            {
-                foreach (var type in inputType.GenericTypeArguments)
-                    reference.Id += type.Name;
-
-                reference.Id += inputType.Name.Replace($"`{inputType.GenericTypeArguments.Count()}", "");
-            }
-            else
-               reference.Id = inputType.Name;
+            reference.Id = TypeIdentifier.Name(inputType);
 
             _result.Content.Add("application/json", new OpenApiMediaType()
             {

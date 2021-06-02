@@ -75,7 +75,7 @@ namespace OpenApiBuilder.Tests
                 nameof(ProjectDto)
             );
 
-            var result = components.Schemas["ListProjectViewResultResult"];
+            var result = components.Schemas["ListProjectsViewResultResult"];
             result.Type.Should().Be("object");
             result.Properties.Should().HaveKeys(
                 "error",

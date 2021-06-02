@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace OpenApiBuilder
 {
@@ -23,6 +24,21 @@ namespace OpenApiBuilder
                 return (typeName, null);
                 
             return (typeName, format);
+        }
+
+        public static string Name(Type inputType)
+        {
+            if (inputType.GenericTypeArguments.Any() == false)
+                return inputType.Name;
+
+            string result = string.Empty;
+            
+            foreach (var type in inputType.GenericTypeArguments)
+                result += type.Name;
+
+            result += inputType.Name.Replace($"`{inputType.GenericTypeArguments.Count()}", "");
+
+            return result;   
         }
 
         private static bool SetFormatToEmpty(string typeName)
