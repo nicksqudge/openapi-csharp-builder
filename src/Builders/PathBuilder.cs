@@ -1,3 +1,4 @@
+using System.Net;
 using System;
 using Microsoft.OpenApi.Models;
 
@@ -16,6 +17,12 @@ namespace OpenApiBuilder
         {
             _result.Operations.Add(operationType, opBuilder.Build());
             return this;
+        }
+
+        public void Build(OpenApiDocument doc)
+        {
+            var path = Build();
+            doc.Paths.Add(Key, path);
         }
     }
 }

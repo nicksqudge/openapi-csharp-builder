@@ -5,7 +5,7 @@
     <AssemblyName>OpenApiBuilder</AssemblyName>
     <RootNamespace>OpenApiBuilder</RootNamespace>
     <PackageId>OpenApiBuilder</PackageId>
-    <Version>0.0.1-alpha</Version>
+    <Version>0.0.2-alpha</Version>
     <Authors>Nick Browne</Authors>
     <Description>Open API Builder patterns for the Microsoft.OpenApi.NET JSON for use in Swagger</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -19,7 +19,7 @@ public class SwaggerData : IDocumentFilter
 {
     public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
     {
-        new PathBuilder($"/api/someCommand", swaggerDoc)
+        new PathBuilder($"/api/someCommand", swaggerDoc.Components)
             .AddOperation(OperationType.Post, post =>
             {
                 post
@@ -30,7 +30,12 @@ public class SwaggerData : IDocumentFilter
                     })
                     .AddResponse<Result>(HttpStatusCode.OK);
             })
-            .Build();
+            .Build(swaggerDoc);
     }
 }
 ```
+
+## Change log
+
+### 0.0.2-alpha
+Added in the input of an OpenApiDocument to load the path into and corrected readme
